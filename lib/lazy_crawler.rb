@@ -1,4 +1,5 @@
 require "uri"
+require "net/http"
 require "timeout"
 require "lazy_crawler/version"
 require "lazy_crawler/robots"
