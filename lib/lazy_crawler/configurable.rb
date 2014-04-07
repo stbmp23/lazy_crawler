@@ -16,13 +16,13 @@ module LazyCrawler
       @max_retry = LazyCrawler::Default::MAX_RETRY
     end
 
-  private
+    private
 
     def credentials
       {
-        :user_agent => String,
-        :timeout => Fixnum,
-        :max_retry => Fixnum,
+        user_agent: String,
+        timeout: Fixnum,
+        max_retry: Fixnum,
       }
     end
 
@@ -31,7 +31,6 @@ module LazyCrawler
         value = send("#{key}")
         unless value.is_a?(klass)
           next if value.nil?
-
           raise LazyCrawler::ConfigurationError \
                 , "Invalid #{key} specified: #{value} must be a #{klass}"
         end

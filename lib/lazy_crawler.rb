@@ -11,21 +11,19 @@ module LazyCrawler
 
   class << self
     include LazyCrawler::Configurable
+  end
 
-    def http_get(url)
-      uri = URI.parse(url)
-      begin
-        Timeout::timeout(LazyCrawler.timeout) do
-          res = Net::HTTP.start(uri.host, uri.port) do |http|
-            http.get(uri.path)
-          end
-        end
-      rescue Timeout::Error
-        return "request timed out. url: #{url}, timeout: " + LazyCrawler.timeout
-      rescue => e
-        return e.message
+  def self.http_get(url)
+    uri = URI.parse(url)
+    Timeout::timeout(LazyCrawler.timeout) do
+      Net::HTTP.start(uri.host, uri.port) do |http|
+        http.get(uri.path)
       end
     end
+  rescue Timeout::Error
+    return "request timed out. url: #{url}, timeout: " + LazyCrawler.timeout
+  rescue => e
+    return e.message
   end
 end
 

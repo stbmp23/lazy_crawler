@@ -1,16 +1,14 @@
 module LazyCrawler
   class Robots
-    class << self
-      def allowed?(url)
-        host = URI.parse(url).host
-        robots(host).allow?(url)
-      end
+    def self.allowed?(url)
+      host = URI.parse(url).host
+      robots(host).allow?(url)
+    end
 
-      def robots(host)
-        @robots ||= {}
-        @robots[host] = LazyCrawler::Robots.new(host) unless @robots[host]
-        @robots[host]
-      end
+    def self.robots(host)
+      @robots ||= {}
+      @robots[host] = LazyCrawler::Robots.new(host) unless @robots[host]
+      @robots[host]
     end
 
     def initialize(host)
@@ -43,9 +41,9 @@ module LazyCrawler
         
         if is_target
           case line
-          when /Allow/
+          when /^Allow/
             @allows << robots_value(line)
-          when /Disallow/
+          when /^Disallow/
             @disallows << robots_value(line)
           end
         end
