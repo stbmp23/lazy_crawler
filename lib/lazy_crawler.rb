@@ -17,7 +17,7 @@ module LazyCrawler
     uri = URI.parse(url)
     Timeout::timeout(LazyCrawler.timeout) do
       Net::HTTP.start(uri.host, uri.port) do |http|
-        http.get(uri.path)
+        http.request(Net::HTTP::Get.new("#{uri.path}?#{uri.query}"))
       end
     end
   rescue Timeout::Error
