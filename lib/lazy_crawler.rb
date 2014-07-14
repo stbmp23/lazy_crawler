@@ -21,7 +21,7 @@ module LazyCrawler
       end
     end
   rescue Timeout::Error
-    return "request timed out. url: #{url}, timeout: " + LazyCrawler.timeout
+    return "request timed out. url: #{url}, timeout: #{LazyCrawler.timeout}"
   rescue => e
     return e.message
   end
