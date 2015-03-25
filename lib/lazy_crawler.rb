@@ -18,7 +18,7 @@ module LazyCrawler
     Timeout::timeout(LazyCrawler.timeout) do
       res = self.net_http(uri, "#{uri.path}?#{uri.query}")
 
-      if Net::HTTPRedirection
+      if res.is_a?(Net::HTTPRedirection)
         loc = res.fetch 'location'
         res = self.net_http(uri, loc)
       end
