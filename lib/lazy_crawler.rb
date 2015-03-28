@@ -4,6 +4,7 @@ require "timeout"
 require "lazy_crawler/version"
 require "lazy_crawler/robots"
 require "lazy_crawler/configurable"
+require "lazy_crawler/response"
 
 module LazyCrawler
   class LazyCrawlerError < StandardError; end
