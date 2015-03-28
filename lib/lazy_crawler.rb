@@ -18,8 +18,11 @@ module LazyCrawler
     uri = URI.parse(url)
     res = self.net_http(uri, "#{uri.path}?#{uri.query}")
 
+    p res
+
     if res.is_a?(Net::HTTPRedirection) || res.is_a?(Net::HTTPMovedPermanently)
       loc = res.fetch 'location'
+      p loc
       if /http/ =~ loc
         uri = URI.parse(loc) if loc =~ /http/
         loc = "#{uri.path}?#{uri.query}"
@@ -30,9 +33,9 @@ module LazyCrawler
 
     LazyCrawler::Response.new(response: res)
   rescue Timeout::Error
-    LazyCrawler::Response(error: "request timed out. url: #{url}, timeout: #{LazyCrawler.timeout}")
+    LazyCrawler::Response.new(error: "request timed out. url: #{url}, timeout: #{LazyCrawler.timeout}")
   rescue => e
-    LazyCrawler::Response(error: e.message)
+    LazyCrawler::Response.new(error: e.message)
   end
 
   def self.net_http(uri, location)

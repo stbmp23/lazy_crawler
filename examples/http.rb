@@ -5,4 +5,4 @@ require 'lazy_crawler'
 url = "http://over-lap.co.jp/Form/Product/BunkoThisMonth.aspx"
 url = "http://www.sneakerbunko.jp/bookdetails/?pcd=321404000275"
 res = LazyCrawler.http_get(url)
-p res.body
+p res

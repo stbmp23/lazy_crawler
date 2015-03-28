@@ -1,15 +1,16 @@
 module LazyCrawler
   class Response
-    attr_reader :result, :error, :code, :body
+    attr_reader :result, :error, :code, :body, :response
 
     def initialize(params = {})
       @result = (params[:error]) ? false : true
       @error = params[:error]
-      @code, @body = nil
+      @code, @body, @response = nil
 
       if params[:response]
-        @code = res.code
-        @body = res.body
+        @response = params[:response]
+        @code = @response.code
+        @body = @response.body
       end
     end
   end
